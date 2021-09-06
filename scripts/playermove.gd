@@ -153,9 +153,13 @@ func _physics_process(delta):
 					emit_signal("hit_ball", reported_body.name, look_direction)
 					reported_body.apply_impulse(Vector3.ZERO,look_direction)
 					reported_body.update_last_hit(player_number)
+					if look_device == InputEventJoypadMotion: # vibrate if this player is using controller
+						Input.start_joy_vibration(0, 0, 1, 0.2)
 				"KinematicBody": # player
 					reported_body.is_hitstunned = true
 					reported_body.impact_vec += look_direction * 1.5
+					if look_device == InputEventJoypadMotion: # vibrate if this player is using controller
+						Input.start_joy_vibration(0, 0, 1, 0.2)
 			play_impact_sound(impact_type)
 	if lobbing:
 		var look_direction = Vector3(0,5.5,0)
